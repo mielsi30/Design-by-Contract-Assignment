@@ -23,8 +23,8 @@
  *
  */
 
-import java.util.function.UnaryOperator;
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 /**
  * An ordered collection (also known as a <i>sequence</i>).  The user of this
@@ -731,4 +731,3 @@ public interface List<E> extends Collection<E> {
         return Spliterators.spliterator(this, Spliterator.ORDERED);
     }
 }
-

@@ -24,6 +24,11 @@
  */
 
 import java.util.*;
+import java.util.Collection;
+import java.util.RandomAccess;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import sun.misc.SharedSecrets;
 
 /**
@@ -1070,11 +1075,11 @@ public class ArrayList<E> extends AbstractList<E>
             this.size -= toIndex - fromIndex;
         }
 
-        public boolean addAll(Collection<? extends E> c) {
+        public boolean addAll(java.util.Collection<? extends E> c) {
             return addAll(this.size, c);
         }
 
-        public boolean addAll(int index, Collection<? extends E> c) {
+        public boolean addAll(int index, java.util.Collection<? extends E> c) {
             rangeCheckForAdd(index);
             int cSize = c.size();
             if (cSize==0)

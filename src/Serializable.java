@@ -23,6 +23,8 @@
  *
  */
 
+import java.io.InvalidClassException;
+
 /**
  * Serializability of a class is enabled by the class implementing the
  * java.io.Serializable interface. Classes that do not implement this
