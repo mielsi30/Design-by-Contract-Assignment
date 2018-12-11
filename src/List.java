@@ -24,6 +24,7 @@
  */
 
 import java.util.function.UnaryOperator;
+import java.util.*;
 
 /**
  * An ordered collection (also known as a <i>sequence</i>).  The user of this
