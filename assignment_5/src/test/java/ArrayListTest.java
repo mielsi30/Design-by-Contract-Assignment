@@ -7,7 +7,6 @@ public class ArrayListTest {
     @Test
     public void getOnEmptyArray() throws Throwable {
         MyArrayList myArray = new MyArrayList<String>(new ArrayList());
-
         assertThrows(Contract.PreconditionViolation.class, () -> myArray.get(0));
     }
 }
