@@ -21,9 +21,7 @@ public class ArrayListTest {
     @Test
     public void clearList() throws Throwable {
         MyArrayList myArray = new MyArrayList<String>(new ArrayList());
-        myArray.add(0, "1");
-        myArray.add(1, "2");
-        myArray.clear();
+        assertThrows(Contract.PreconditionViolation.class, () -> myArray.add(0, "1"));
     }
 
 

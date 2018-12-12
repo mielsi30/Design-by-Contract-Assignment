@@ -3,7 +3,7 @@ import ch.usi.si.codelounge.jsicko.Contract;
 import java.util.*;
 
 public class MyArrayList<E> extends AbstractList<E> implements Contract, List<E>, RandomAccess, Cloneable, java.io.Serializable{
-    private final java.util.ArrayList<E> list;
+    private java.util.ArrayList<E> list;
 
     public MyArrayList(java.util.ArrayList<E> list) {
         this.list = list;
@@ -22,7 +22,7 @@ public class MyArrayList<E> extends AbstractList<E> implements Contract, List<E>
 
     @Pure
     private boolean availableElement(int index) {
-        return this.list.size() > index;
+        return list.size() > index;
     }
 
 
