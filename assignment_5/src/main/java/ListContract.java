@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 public interface ListContract<E> extends Contract {
+    @Invariant
+    @Pure
+    default boolean nonNegativeSize() {
+        return size() >= 0;
+    }
 
     int size();
 
@@ -36,7 +41,6 @@ public interface ListContract<E> extends Contract {
 
     boolean retainAll(Collection<?> c);
 
-    @Requires("notEmpty")
     @Ensures("listEmpty")
     void clear();
 
@@ -81,11 +85,6 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean notEmpty() {
         return !this.isEmpty();
-    }
-
-    @Pure
-    default boolean listEmpty() {
-        return this.isEmpty();
     }
 
     @Pure

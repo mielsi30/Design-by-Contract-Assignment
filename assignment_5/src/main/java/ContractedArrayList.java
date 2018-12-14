@@ -86,7 +86,6 @@ public class ContractedArrayList<E> implements ListContract<E> {
     }
 
     @Override
-    @Requires("indexInRange")
     public void add(int index, E element) {
 
     }
