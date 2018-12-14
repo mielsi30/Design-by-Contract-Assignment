@@ -26,7 +26,7 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return arrayList.toArray();
     }
 
     @Override
@@ -41,17 +41,17 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        return arrayList.remove(o);
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        return arrayList.containsAll(c);
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        return false;
+        return arrayList.addAll(c);
     }
 
     @Override

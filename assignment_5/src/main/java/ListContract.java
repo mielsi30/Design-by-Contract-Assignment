@@ -9,12 +9,6 @@ public interface ListContract<E> extends Contract {
         return size() >= 0;
     }
 
-//    @Invariant
-//    @Pure
-//    default boolean iteratorAlwaysAvailable() {
-//        return iterator() != null;
-//    }
-
     @Pure
     int size();
 
@@ -26,18 +20,20 @@ public interface ListContract<E> extends Contract {
 
     Object[] toArray();
 
-//    @Requires("arrayNotNull")
+    @Requires("arrayNotNull")
     E[] toArray(E[] a);
+
 /* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
  before our assertion */
 
     boolean add(E e);
 
-    @Requires("sizeDoesNotIncrease")
+    @Ensures("sizeDoesNotIncrease")
     boolean remove(Object o);
 
     boolean containsAll(Collection<?> c);
 
+    @Ensures("containsAll")
     boolean addAll(Collection<? extends E> c);
 
     boolean addAll(int index, Collection<? extends E> c);
@@ -98,7 +94,7 @@ public interface ListContract<E> extends Contract {
     }
 
     @Pure
-    default boolean arrayNotNull(E[] a) {
+    default <E> boolean arrayNotNull(E[] a) {
         return a != null;
     }
 
@@ -106,4 +102,5 @@ public interface ListContract<E> extends Contract {
     default boolean sizeDoesNotIncrease(Object o) {
         return this.size() <= Contract.old(this).size();
     }
+
 }

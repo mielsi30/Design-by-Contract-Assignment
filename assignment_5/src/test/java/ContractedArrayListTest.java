@@ -1,6 +1,7 @@
 import ch.usi.si.codelounge.jsicko.Contract;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -37,5 +38,15 @@ class ContractedArrayListTest {
         list.add("1");
         list.add("2");
         assertThrows(Contract.PreconditionViolation.class, () -> list.toArray(null));
+    }
+
+    @Test
+    void testAddAll() {
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        ArrayList a = new ArrayList();
+        a.add("1");
+        a.add("2");
+        a.add("3");
+        list.addAll(a);
     }
 }
