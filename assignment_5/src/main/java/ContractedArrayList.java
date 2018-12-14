@@ -56,17 +56,17 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
+        return arrayList.addAll(index, c);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        return arrayList.removeAll(c);
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        return arrayList.retainAll(c);
     }
 
     @Override
@@ -81,22 +81,22 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public E set(int index, E element) {
-        return null;
+        return arrayList.set(index, element);
     }
 
     @Override
     public void add(int index, E element) {
-
+        arrayList.add(index, element);
     }
 
     @Override
     public E remove(int index) {
-        return null;
+        return arrayList.remove(index);
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        return arrayList.indexOf(o);
     }
 
     @Override
@@ -105,18 +105,7 @@ public class ContractedArrayList<E> implements ListContract<E> {
     }
 
     @Override
-    public ListIterator<E> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<E> listIterator(int index) {
-        return null;
-    }
-
-    @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        return null;
+        return arrayList.subList(fromIndex, toIndex);
     }
-
 }

@@ -46,6 +46,49 @@ class ContractedArrayListTest {
         a.add("2");
         a.add("3");
         list.addAll(a);
+        assertThrows(Contract.PreconditionViolation.class, () -> list.addAll(5, a));
+    }
+
+    @Test
+    void testRemoveAll() {
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        ArrayList a = new ArrayList();
+        a.add("1");
+        a.add("2");
+        list.addAll(a);
+        assertThrows(Contract.PreconditionViolation.class, () -> list.removeAll(null));
+    }
+
+    @Test
+    void testRetainAll() {
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        ArrayList a = new ArrayList();
+        a.add("1");
+        a.add("2");
+        list.addAll(a);
+        list.add("3");
+        list.retainAll(a);
+        assert(!list.contains("3"));
+        assertThrows(Contract.PreconditionViolation.class, () -> list.retainAll(null));
+    }
+
+    @Test
+    void testSet() {
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        assertThrows(Contract.PreconditionViolation.class, () -> list.set(0, "fail"));
+    }
+
+    @Test
+    void testIndex() {
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        ArrayList a = new ArrayList();
+        a.add("1");
+        a.add("2");
+        list.addAll(a);
+        list.add("3");
+        list.add("3");
+        list.indexOf("3");
+        list.lastIndexOf("3");
     }
 
     @Test

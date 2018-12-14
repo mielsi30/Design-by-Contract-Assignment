@@ -36,10 +36,13 @@ public interface ListContract<E> extends Contract {
     @Ensures("containsAll")
     boolean addAll(Collection<? extends E> c);
 
+    @Requires("indexInRange")
     boolean addAll(int index, Collection<? extends E> c);
 
+    @Requires("collectionNotNull")
     boolean removeAll(Collection<?> c);
 
+    @Requires("collectionNotNull")
     boolean retainAll(Collection<?> c);
 
     @Ensures("listEmpty")
@@ -48,6 +51,7 @@ public interface ListContract<E> extends Contract {
     @Requires("indexInRange")
     E get(int index);
 
+    @Requires("indexInRange")
     E set(int index, E element);
 
     @Requires("indexInRange")
@@ -58,21 +62,23 @@ public interface ListContract<E> extends Contract {
     @Ensures("sizeDecreases")
     E remove(int index);
 
+    @Ensures("equalObjectAtFirstOccurrence")
     int indexOf(Object o);
 
-    @Ensures("sizeDoesNotChange")
+    @Ensures("equalObjectAtLastPosition")
     int lastIndexOf(Object o);
-    
-    ListIterator<E> listIterator();
 
-    ListIterator<E> listIterator(int index);
-
-    @Requires("validRange")
+    @Requires("indexesInRange")
     List<E> subList(int fromIndex, int toIndex);
 
     @Pure
     default boolean indexInRange(int index) {
-        return size() > index;
+        return (size() > index) && (index >= 0);
+    }
+
+    @Pure
+    default boolean indexesInRange(int fromIndex, int toIndex) {
+        return (size() > fromIndex) && (fromIndex >= 0) && (toIndex >=0) && (toIndex < size());
     }
 
     @Pure
@@ -106,13 +112,45 @@ public interface ListContract<E> extends Contract {
     }
 
     @Pure
-    default boolean validRange(int fromIndex, int toIndex) {
-        return !(fromIndex < 0 || toIndex > size() || fromIndex > toIndex);
+    default boolean collectionNotNull(Collection<?> c) {
+        return c != null;
     }
 
     @Pure
-    default boolean sizeDoesNotChange() {
-        return Contract.old(this).size() == size();
+    default boolean equalObjectAtFirstOccurrence(Object o) {
+        if (contains(o)) {
+            int obj = 0;
+            while (obj < size() && !(get(obj).equals(o)))
+                obj++;
+
+            if (obj < size())
+                return get(obj).equals(o);
+
+            return false;
+        }
+        return true;
     }
+
+    @Pure
+    default boolean equalObjectAtLastPosition(Object o) {
+        if (contains(o)) {
+            int obj = 0;
+            int lastPos = 0;
+            while (obj < size()) {
+                if (get(obj).equals(o))
+                    lastPos = obj;
+                obj++;
+            }
+
+            if (lastPos < size())
+                return get(lastPos).equals(o);
+
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 }
