@@ -4,10 +4,9 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     private ArrayList<E> arrayList = new ArrayList<>();
 
-
     @Override
     public int size() {
-        return 0;
+        return arrayList.size();
     }
 
     @Override
@@ -31,8 +30,8 @@ public class ContractedArrayList<E> implements ListContract<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
-        return null;
+    public E[] toArray(E[] a) {
+        return arrayList.toArray(a);
     }
 
     @Override
@@ -72,12 +71,12 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public void clear() {
-
+        arrayList.clear();
     }
 
     @Override
     public E get(int index) {
-        return null;
+        return arrayList.get(index);
     }
 
     @Override
@@ -119,4 +118,5 @@ public class ContractedArrayList<E> implements ListContract<E> {
     public List<E> subList(int fromIndex, int toIndex) {
         return null;
     }
+
 }

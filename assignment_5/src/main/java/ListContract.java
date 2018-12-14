@@ -1,9 +1,6 @@
 import ch.usi.si.codelounge.jsicko.Contract;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public interface ListContract<E> extends Contract {
     @Invariant
@@ -12,6 +9,13 @@ public interface ListContract<E> extends Contract {
         return size() >= 0;
     }
 
+//    @Invariant
+//    @Pure
+//    default boolean iteratorAlwaysAvailable() {
+//        return iterator() != null;
+//    }
+
+    @Pure
     int size();
 
     boolean isEmpty();
@@ -22,13 +26,14 @@ public interface ListContract<E> extends Contract {
 
     Object[] toArray();
 
-    @Requires("arrayNotNull")
-    <T> T[] toArray(T[] a);
+//    @Requires("arrayNotNull")
+    E[] toArray(E[] a);
 /* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
  before our assertion */
 
     boolean add(E e);
 
+    @Requires("sizeDoesNotIncrease")
     boolean remove(Object o);
 
     boolean containsAll(Collection<?> c);
@@ -83,12 +88,22 @@ public interface ListContract<E> extends Contract {
     }
 
     @Pure
+    default boolean listEmpty() {
+        return this.isEmpty();
+    }
+
+    @Pure
     default boolean notEmpty() {
         return !this.isEmpty();
     }
 
     @Pure
-    default <T> boolean arrayNotNull(T[] a) {
+    default boolean arrayNotNull(E[] a) {
         return a != null;
+    }
+
+    @Pure
+    default boolean sizeDoesNotIncrease(Object o) {
+        return this.size() <= Contract.old(this).size();
     }
 }

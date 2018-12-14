@@ -1,6 +1,9 @@
 import ch.usi.si.codelounge.jsicko.Contract;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ContractedArrayListTest {
@@ -25,12 +28,7 @@ class ContractedArrayListTest {
         list.add("1");
         list.add("2");
         assertThrows(Contract.PreconditionViolation.class, () -> list.remove(3));
-    }
-
-    @Test
-    void testClear(){
-        ContractedArrayList<String> list = new ContractedArrayList<>();
-        assertThrows(Contract.PreconditionViolation.class, () -> list.clear());
+//        assertThrows(Contract.PostconditionViolation.class, () -> list.remove("1"));
     }
 
     @Test
@@ -40,6 +38,4 @@ class ContractedArrayListTest {
         list.add("2");
         assertThrows(Contract.PreconditionViolation.class, () -> list.toArray(null));
     }
-
-
 }
