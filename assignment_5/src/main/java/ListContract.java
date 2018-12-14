@@ -66,6 +66,7 @@ public interface ListContract<E> extends Contract {
 
     ListIterator<E> listIterator(int index);
 
+    @Requires("validRange")
     List<E> subList(int fromIndex, int toIndex);
 
     @Pure
@@ -101,6 +102,11 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean sizeDoesNotIncrease(Object o) {
         return this.size() <= Contract.old(this).size();
+    }
+
+    @Pure
+    default boolean validRange(int fromIndex, int toIndex) {
+        return !(fromIndex < 0 || toIndex > size() || fromIndex > toIndex);
     }
 
 }

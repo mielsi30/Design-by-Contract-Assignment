@@ -41,6 +41,7 @@ class ContractedArrayListTest {
     }
 
     @Test
+
     void testAddAll() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
         ArrayList a = new ArrayList();
@@ -48,5 +49,13 @@ class ContractedArrayListTest {
         a.add("2");
         a.add("3");
         list.addAll(a);
+    }
+
+    @Test
+    void testSubList(){
+        ContractedArrayList<String> list = new ContractedArrayList<>();
+        list.add("1");
+        list.add("2");
+        assertThrows(Contract.PreconditionViolation.class, () -> list.subList(3,1));
     }
 }
