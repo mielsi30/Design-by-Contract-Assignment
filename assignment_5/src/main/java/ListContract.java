@@ -60,8 +60,9 @@ public interface ListContract<E> extends Contract {
 
     int indexOf(Object o);
 
+    @Ensures("sizeDoesNotChange")
     int lastIndexOf(Object o);
-
+    
     ListIterator<E> listIterator();
 
     ListIterator<E> listIterator(int index);
@@ -107,6 +108,11 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean validRange(int fromIndex, int toIndex) {
         return !(fromIndex < 0 || toIndex > size() || fromIndex > toIndex);
+    }
+
+    @Pure
+    default boolean sizeDoesNotChange() {
+        return Contract.old(this).size() == size();
     }
 
 }

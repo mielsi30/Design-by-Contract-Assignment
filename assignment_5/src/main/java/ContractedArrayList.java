@@ -101,7 +101,7 @@ public class ContractedArrayList<E> implements ListContract<E> {
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        return arrayList.lastIndexOf(o);
     }
 
     @Override
