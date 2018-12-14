@@ -1,12 +1,18 @@
 import ch.usi.si.codelounge.jsicko.Contract;
 
-import java.util.*;
+import java.util.AbstractList;
+import java.util.ArrayList;
 
-public class MyArrayList<E> extends AbstractList<E> implements Contract, List<E>, RandomAccess, Cloneable, java.io.Serializable{
+public class MyArrayList<E> extends AbstractList<E> implements Contract {
+
     private java.util.ArrayList<E> list;
 
     public MyArrayList(java.util.ArrayList<E> list) {
         this.list = list;
+    }
+
+    public MyArrayList() {
+        this.list = new ArrayList<>();
     }
 
     @Requires("availableElement")

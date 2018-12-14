@@ -12,9 +12,14 @@ class ArrayListTest {
     }
 
     @Test
-    void addWrongElement() {
-        MyArrayList<String> myArray = new MyArrayList<>(new ArrayList<>());
-        assertThrows(Contract.PreconditionViolation.class, () -> myArray.add(1, "1"));
+    void testConditionsOnAdd() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("ciao");
+        arrayList.add("mama");
+        MyArrayList<String> myArray = new MyArrayList<>(arrayList);
+        myArray.add("again");
+        assertThrows(Contract.PreconditionViolation.class, () -> myArray.add(2, "1"));
+        assertThrows(Contract.PostconditionViolation.class, () -> myArray.add(1, "1"));
     }
 
     @Test
