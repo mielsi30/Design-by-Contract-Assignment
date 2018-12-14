@@ -17,7 +17,10 @@ public interface ListContract<E> extends Contract {
 
     Object[] toArray();
 
+    @Requires("arrayNotNull")
     <T> T[] toArray(T[] a);
+/* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
+ before our assertion */
 
     boolean add(E e);
 
@@ -33,15 +36,21 @@ public interface ListContract<E> extends Contract {
 
     boolean retainAll(Collection<?> c);
 
+    @Requires("notEmpty")
+    @Ensures("listEmpty")
     void clear();
 
+    @Requires("indexInRange")
     E get(int index);
 
     E set(int index, E element);
 
     @Requires("indexInRange")
+    @Ensures("sizeIncreases")
     void add(int index, E element);
 
+    @Requires("indexInRange")
+    @Ensures("sizeDecreases")
     E remove(int index);
 
     int indexOf(Object o);
@@ -57,5 +66,30 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean indexInRange(int index) {
         return size() > index;
+    }
+
+    @Pure
+    default boolean sizeIncreases() {
+        return this.size() == Contract.old(this).size() + 1;
+    }
+
+    @Pure
+    default boolean sizeDecreases() {
+        return this.size() == Contract.old(this).size() - 1;
+    }
+
+    @Pure
+    default boolean notEmpty() {
+        return !this.isEmpty();
+    }
+
+    @Pure
+    default boolean listEmpty() {
+        return this.isEmpty();
+    }
+
+    @Pure
+    default <T> boolean arrayNotNull(T[] a) {
+        return a != null;
     }
 }
