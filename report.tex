@@ -43,5 +43,41 @@
 
 \section{Selection Process}
 
+The selected project for implementing Design by Contract was the ArrayList and the Vector classes from Java Collections. We picked these two data structures given that their behaviour can be modelled by implementing Contracts.  (...)
+
+\section{Contract Implementation}
+
+First, we implemented an Interface "ListContract" which defines the ArrayList methods and where the each of the Contracts were implemented. Then, we created a class "ContractedArrayList" which implements our interface each of its methods.
+The approach followed for the implementation of the Contracts was first reading the class documentation for each method to understand and determine each one of the preconditions and postconditions. 
+One of the challenges we faced during the implementation was understanding how to properly use the jSicko library. In some cases, jSicko would produce errors which were difficult to understand what flaw they were pointing out and sometimes seemed arbitrary. (add an example?) 
+
+\section{Contracts Overview}
+For the ArrayList class, a total of 16 Contracts and one Invariant were implemented, shown below:
+\begin{itemize}
+ \item Invariant: nonNegativeSize. Ensures the size of the list is always equal or greater than 0.
+\end{itemize}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Method}                     & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
+add(E e)                            & sizeIncreases                &                        \\ \hline
+add(int index, E element)           & indexInRange                 & sizeIncreases          \\ \hline
+get(int index)                      & indexInRange                 &                        \\ \hline
+remove(Object o)                    &                              & sizeDoesNotIncrease    \\ \hline
+remove(int index)                   & indexInRange                 & sizeDecreases          \\ \hline
+addAll(Collection c)                &                              & containsAll            \\ \hline
+addAll(int index, Collection c)     & indexInRange                 &                        \\ \hline
+removeAll(Collection c)             & collectionNotNull            &                        \\ \hline
+retainAll(Collection c)             & collectionNotNull            &                        \\ \hline
+clear()                             & listEmpty                    &                        \\ \hline
+set(int index, E element)           & indexInRange                 &                        \\ \hline
+indexOf(Object o)                   & equalObjectAtFirstOccurrence &                        \\ \hline
+lastIndexOf(Object o)               & equalObjectAtLastPosition    &                        \\ \hline
+subList(int fromIndex, int toIndex) & indexesInRange               &                        \\ \hline
+toArray(E[] a)                  & arrayNotNull                 &                        \\ \hline
+\end{tabular}
+\end{table}
+
 
 \end{document}
