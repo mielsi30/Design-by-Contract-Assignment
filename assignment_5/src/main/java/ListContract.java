@@ -22,10 +22,10 @@ public interface ListContract<E> extends Contract {
 
     @Requires("arrayNotNull")
     E[] toArray(E[] a);
-
 /* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
  before our assertion */
 
+    @Ensures("sizeIncreases")
     boolean add(E e);
 
     @Ensures("sizeDoesNotIncrease")
