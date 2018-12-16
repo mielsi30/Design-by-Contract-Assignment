@@ -43,21 +43,24 @@
 
 \section{Selection Process}
 
-The selected project for implementing Design by Contract was the ArrayList and the Vector classes from Java Collections. We picked these two data structures given that their behaviour can be modelled by implementing Contracts.  (...)
+The selected project for implementing Design by Contract was the ArrayList and the Vector classes from Java Collections. We picked these two data structures given that their behaviour can be modelled by implementing Contracts. 
 
 \section{Contract Implementation}
 
-First, we implemented an Interface "ListContract" which defines the ArrayList methods and where the each of the Contracts were implemented. Then, we created a class "ContractedArrayList" which implements our interface each of its methods.
+First, we implemented an Interface "ListContract" which defines the ArrayList methods and where the each of the Contracts were implemented. Then, we created a class "ContractedArrayList" which implements our interface each of its methods. We created the analogous Interface and Class for the Vector, called VectorContract and ContractedVector respectively. \par
 The approach followed for the implementation of the Contracts was first reading the class documentation for each method to understand and determine each one of the preconditions and postconditions. 
-One of the challenges we faced during the implementation was understanding how to properly use the jSicko library. In some cases, jSicko would produce errors which were difficult to understand what flaw they were pointing out and sometimes seemed arbitrary. (add an example?) 
+One of the challenges we faced during the implementation was understanding how to properly use the jSicko library. One obstacle we faced was understanding to name all variables with the same name so the library could parse them correctly. Also, in some cases, jSicko would produce errors which were difficult to understand what flaw they were pointing out and sometimes seemed arbitrary. (maybe add something more)
 
 \section{Contracts Overview}
-For the ArrayList class, a total of 16 Contracts and one Invariant were implemented, shown below:
+
+Overall, the preconditions we created require the parameters to be valid, for example, an index within the given size or the parameter was not null. For postconditions we ensured the appropiate changes were to the list and vector, such as changes in size and ensuring the list contains all elements after adding a Collection to it.
+The contracts we implemented for both classes were similar, given that they are both classes from Java Collections and have similar behavior. 
+For the ArrayList class, a total of 16 Contracts and one Invariant were implemented (shown on Table 1). For the Vector class, 9 contracts were implemented (Table 2). 
 \begin{itemize}
- \item Invariant: nonNegativeSize. Ensures the size of the list is always equal or greater than 0.
+ \item Invariant: nonNegativeSize. Ensures the size of the list is always equal or greater than 0. This invariant was used for both classes.
 \end{itemize}
 
-\begin{table}[h]
+\begin{table}[h!]
 \begin{tabular}{|l|l|l|}
 	\hline
 	\textbf{Method}                     & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
@@ -77,14 +80,11 @@ For the ArrayList class, a total of 16 Contracts and one Invariant were implemen
 	subList(int fromIndex, int toIndex) & indexesInRange               &                        \\ \hline
 	toArray(E[] a)                  & arrayNotNull                 &                        \\ \hline
 	\end{tabular}
+	\caption{ArrayList Contracts}
+	\label{table:1}
 	\end{table}
 	
-	Vector class Contracts
-	\begin{itemize}
-	 \item Invariant: nonNegativeSize. Ensures the size of the vector is always equal or greater than 0.
-	\end{itemize}
-	
-	\begin{table}[h]
+	\begin{table}[h!]
 	\begin{tabular}{|l|l|l|}
 	\hline
 	\textbf{Method}                      & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
@@ -98,6 +98,17 @@ For the ArrayList class, a total of 16 Contracts and one Invariant were implemen
 	removeIf(Predicate<? super E> filter)          & filterNotNull &                                    \\ \hline
 	lastIndexOf(Object o, int index)               & indexWithinBounds    &      sizeStaysTheSame   \\ \hline
 \end{tabular}
+\caption{Vector Contracts}
+	\label{table:2}
 \end{table}
+
+\section{Testing Outcomes}
+From our tests we were able to verify our preconditions worked properly. (?)
+
+\section{Applicability to Other Projects}
+Naturally, the contracts we implemented could be applied for other collections, applying minor changes to fit each of their structures. They could also be useful for applications where these kinds of data structures are used. 
+
+\section{Conclusions}
+
 
 \end{document}
