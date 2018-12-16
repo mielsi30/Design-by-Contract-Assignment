@@ -2,6 +2,7 @@ import ch.usi.si.codelounge.jsicko.Contract;
 
 import java.util.*;
 
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public interface ListContract<E> extends Contract {
     @Invariant
     @Pure
@@ -16,16 +17,10 @@ public interface ListContract<E> extends Contract {
 
     boolean contains(Object o);
 
-    Iterator<E> iterator();
-
-    Object[] toArray();
-
     @Requires("arrayNotNull")
     E[] toArray(E[] a);
-/* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
- before our assertion */
 
-//    @Ensures("sizeIncreases")
+    @Ensures("sizeIncreases")
     boolean add(E e);
 
     @Ensures("sizeDoesNotIncrease")
@@ -119,12 +114,12 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean equalObjectAtFirstOccurrence(Object o) {
         if (contains(o)) {
-            int obj = 0;
-            while (obj < size() && !(get(obj).equals(o)))
-                obj++;
+            int objPos = 0;
+            while (objPos < size() && !(get(objPos).equals(o)))
+                objPos++;
 
-            if (obj < size())
-                return get(obj).equals(o);
+            if (objPos < size())
+                return get(objPos).equals(o);
 
             return false;
         }
@@ -134,12 +129,12 @@ public interface ListContract<E> extends Contract {
     @Pure
     default boolean equalObjectAtLastPosition(Object o) {
         if (contains(o)) {
-            int obj = 0;
+            int objPos = 0;
             int lastPos = 0;
-            while (obj < size()) {
-                if (get(obj).equals(o))
-                    lastPos = obj;
-                obj++;
+            while (objPos < size()) {
+                if (get(objPos).equals(o))
+                    lastPos = objPos;
+                objPos++;
             }
 
             if (lastPos < size())
@@ -149,8 +144,4 @@ public interface ListContract<E> extends Contract {
         }
         return true;
     }
-
-
-
-
 }
