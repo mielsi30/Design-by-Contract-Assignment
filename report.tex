@@ -29,7 +29,7 @@
   stringstyle=\color{mauve},
   breaklines=true,
   breakatwhitespace=true,
-  tabsize=3
+  tabsize=4
 }
 
 \title{Applying Design by Contract to \\ Java ArrayList Data Structure}
@@ -43,28 +43,66 @@
 
 \section{Selection Process}
 
-The selected project for implementing Design by Contract was the ArrayList and the Vector classes from Java Collections. We picked these two data structures given that their behaviour can be modelled by implementing Contracts and also because we are familiar with them. Initially, we thought about working with bachelor projects but decided not to work with them because they didn't have as many interfaces to work with. Then, we considered using a Java library but we realized we first had to invest a lot of time getting familiar with it and trying to understand how to implement contracts to them. Therefore, we developed our project using ArrayList and Vector.
+The selected project for implementing Design by Contract is the ArrayList and the Vector classes from Java Util. We picked these two data structures given that their behaviour can be modelled by implementing Contracts and also because we are familiar with them. Initially, we thought about working with bachelor projects but decided not to work with them because they didn't have as many interfaces to work with. Then, we considered using a Java library such as Cloneable and Comparable but we realized that we first had to invest a lot of time getting familiar with it and trying to understand how to implement contracts to them. Therefore, we developed our project using ArrayList and Vector.
 
+
+\section{Project Description}
+In the end we decided to choose two data structures that implement the List interface such as ArrayList and Vector. 
+\subsection{ArrayList}
+ArrayList is a resizable-array implementation that implements all optional list operations, and permits all elements, including null. 
+Each ArrayList instance has a capacity. The capacity is the size of the array used to store the elements in the list. It is always at least as large as the list size. As elements are added to an ArrayList, its capacity grows automatically. 
+The implementation of ArrayList is not synchronized, if multiple threads access an ArrayList instance concurrently, and at least one of the threads modifies the list structurally, it must be synchronized externally.
+Also this data structure implements the iterator interface and provides an iterator in order to access elements. In this project we applied the contracts in the following methods:
+\begin{itemize}
+	\item toArray
+	\item addAll
+	\item removeAll
+	\item retainAll
+	\item clear
+	\item get
+	\item set 
+	\item add
+	\item remove
+	\item indexOf
+	\item lastIndexOf
+	\item subList
+\end{itemize}
+
+\subsection{Vector}
+The Vector class implements a growable array of objects. Like an array, it contains components that can be accessed using an integer index. However, the size of a Vector can grow or shrink as needed to accommodate adding and removing items after the Vector has been created.
+Also Vector provides an iterator, but the iterators returned by this class's iterator and listIterator methods are fail-fast: if the vector is structurally modified at any time after the iterator is created it will throw an exception. 
+In this project we applied the contracts in the following methods:
+\begin{itemize}
+	\item indexOf
+	\item lastIndexOf
+	\item elementAt
+	\item firstElement
+	\item lastElement
+	\item removeElementAt
+	\item removeAllElements
+	\item addElement
+	\item removeIf
+\end{itemize}
 
 \section{Contract Implementation}
 
-First, we implemented an Interface "ListContract" which defines the ArrayList methods and where the each of the Contracts were implemented. Then, we created a class "ContractedArrayList" which implements our interface each of its methods. We created the analogous Interface and Class for the Vector, called VectorContract and ContractedVector respectively. \par
+First, we implemented an Interface "ListContract" which defines the ArrayList methods and where the each of the Contracts were implemented. Then, we created a class ``ContractedArrayList'' which implements our interface each of its methods. We created the analogous Interface and Class for the Vector, called VectorContract and ContractedVector respectively. \par
 The approach followed for the implementation of the Contracts was first reading the class documentation for each method to understand and determine each one of the preconditions and postconditions. 
-One of the challenges we faced during the implementation was understanding how to properly use the jSicko library. One obstacle we faced was understanding to name all variables with the same name so the library could parse them correctly. Also, in some cases, jSicko would produce errors which were difficult to understand what flaw they were pointing out and sometimes seemed arbitrary. (maybe add something more)
+One of the challenges we faced during the implementation was understanding how to properly use the jSicko library. One obstacle we faced was understanding to name all variables with the same name so the library could parse them correctly. Also, in some cases, jSicko would produce errors which were difficult to understand what flaw they were pointing out and sometimes seemed arbitrary. 
 
 \section{Contracts Overview}
 
-Overall, the preconditions we created require the parameters to be valid, for example, an index within the given size or the parameter was not null. For postconditions we ensured the appropiate changes were to the list and vector, such as changes in size and ensuring the list contains all elements after adding a Collection to it.
+Overall, the preconditions we created require the parameters to be valid, for example, an index within the given size or the parameter was not null. For postconditions we ensured the appropriate changes were made to the list and vector, such as changes in size and ensuring the list contained all elements after adding a Collection to it.
 The contracts we implemented for both classes were similar, given that they are both classes from Java Collections and have similar behavior. 
 For the ArrayList class, a total of 16 Contracts and one Invariant were implemented (shown on Table 1). For the Vector class, 9 contracts were implemented (Table 2). 
 \begin{itemize}
- \item Invariant: nonNegativeSize. Ensures the size of the list is always equal or greater than 0. This invariant was used for both classes.
+ \item Invariant: \lstinline{nonNegativeSize}. Ensures the size of the list is always equal or greater than 0. This invariant was used for both classes.
 \end{itemize}
 
 \begin{table}[h!]
 \begin{tabular}{|l|l|l|}
 	\hline
-	\textbf{Method}                     & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
+	\textbf{Method}           	          & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
 	add(E e)                            & sizeIncreases                &                        \\ \hline
 	add(int index, E element)           & indexInRange                 & sizeIncreases          \\ \hline
 	get(int index)                      & indexInRange                 &                        \\ \hline
@@ -104,12 +142,37 @@ For the ArrayList class, a total of 16 Contracts and one Invariant were implemen
 \end{table}
 
 \section{Testing Outcomes}
-From our tests we were able to verify our preconditions worked properly. (?)
+From our tests we were able to verify our preconditions worked properly. In order to test the preconditions, we wrote some simple test classes with JUnit which declared some tests for our contracted \lstinline{ArrayList} and \lstinline{Vector}. Those methods would perform incorrect method calls that would trigger a precondition exception. This method only works for preconditions in case the contracted data structure is correct. In order to test the postconditions we would need to write an incorrect implementation of ArrayList that would brake the postconditions in very specific way (for example, in case a sort function would change the list size, a possible ``sizeDidNotChange'' postcondition would be broken by the implementation of the sort method). We will show and analyse one particular test case and display how we approached testing in general:
+
+\begin{lstlisting}
+@Test
+  void testAddWithIndex() {
+      ContractedArrayList<String> list = new ContractedArrayList<>();
+      list.add("1");
+      list.add("2");
+      assertThrows(Contract.PreconditionViolation.class, () -> list.add(3, "1"));
+  }
+\end{lstlisting}
+
+The test above checks for the \lstinline{indexInRange} precondition on the \lstinline{add} method of \lstinline{ContractedArrayList} by creating a new list with two elements inside it and finally trying to use the add method that takes both an element to insert and an index to use for insertion. The last call though will break the \lstinline{indexInRange} precondition, because the list has only two element and cannot accept any index referring to a index which is not available in the list (in our case, index 3). The assert statement just checks for a thrown \lstinline{PreconditionViolation}.
+
+The implementation of the precondition tested is as follows:
+
+\begin{lstlisting}
+@Pure
+default boolean indexInRange(int index) {
+		return (size() > index) && (index >= 0);
+}
+\end{lstlisting}
+
+The method just checks whether the passed index is greater than zero and smaller than the size of the list minus one.
+
+Our general approach to testing was to at first design a meaningful precondition for either one ore more methods of a data structure, then annotating the methods that could benefit from such a precondition and finally writing a test that would instantiate the data structure with the needed operations to construct a meaningful use case for the contracted methods (like calling \lstinline{add} multiple times on the list to initialize it properly) and calling the contracted method itself on the list to check for precondition violations. The JSicko library itself helped us in doing so but at the same time limited some of the possible contracts we could design. For example, we were not able to properly design a precondition for any method instantiating an iterator, because tests would not work properly for those cases.
 
 \section{Applicability to Other Projects}
-Naturally, the contracts we implemented could be applied for other collections, applying minor changes to fit each of their structures. They could also be useful for applications where these kinds of data structures are used. 
+Naturally, the contracts we implemented could be applied for other collections, applying minor changes to fit each of their structures. They could also be useful for applications where these kinds of data structures are used. In general, contracts are very useful to track down issues during API and data structures implementations, since they can directly address any implementation and/or usage issue. This can also be extended to complex interfaces in general, especially if they expose multiple methods to be used by external users, so that really need to have a very consistent behavior (that can be checked with postconditions) and  at the same time be safe in case of misuse by the user (preconditions help avoiding unexpected errors in this case). Overall, contracts are a way of enhancing code checks that can be tackled in various different ways. For example, functional programming and in particular maybe monads can avoid unwanted behavior that can be caused by the usage of \lstinline{null} values. Test driven development is an alternative to postconditions checks too. Design by contract is though a more clean and consistent way to approach the same issues.
 
 \section{Conclusions}
-
+To conclude, after working with Contracts we noticed their usefulness in several aspects. First, they document in a precise way what a method or class is supposed to do, allowing for better readability and allowing developers to gain deeper understanding on the behavior of the code. Secondly, they help eliminate redundant checks within the methods, such as null checks or other parameter validations. Thirdly, they serve as a way for dealing with abnormal cases, leading to safer and more effective exception handling, consequently improving reliability. Given the above, we can lastly conclude they are a powerful testing framework, given that they serve as a systematic approach to building bug free systems.
 
 \end{document}
