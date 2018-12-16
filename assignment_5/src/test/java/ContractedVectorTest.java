@@ -22,6 +22,5 @@ class ContractedVectorTest {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, vector::lastElement);
     }
-
 }
 

@@ -40,7 +40,7 @@ class ContractedArrayListTest {
     @Test
     void testAddAll() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<>();
         a.add("1");
         a.add("2");
         a.add("3");
@@ -51,7 +51,7 @@ class ContractedArrayListTest {
     @Test
     void testRemoveAll() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<>();
         a.add("1");
         a.add("2");
         list.addAll(a);
@@ -61,7 +61,7 @@ class ContractedArrayListTest {
     @Test
     void testRetainAll() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<>();
         a.add("1");
         a.add("2");
         list.addAll(a);
@@ -80,7 +80,7 @@ class ContractedArrayListTest {
     @Test
     void testIndex() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<>();
         a.add("1");
         a.add("2");
         list.addAll(a);

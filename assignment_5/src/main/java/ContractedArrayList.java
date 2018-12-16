@@ -1,5 +1,6 @@
 import java.util.*;
 
+@SuppressWarnings("SuspiciousMethodCalls")
 public class ContractedArrayList<E> implements ListContract<E> {
 
     private ArrayList<E> arrayList = new ArrayList<>();
@@ -17,16 +18,6 @@ public class ContractedArrayList<E> implements ListContract<E> {
     @Override
     public boolean contains(Object o) {
         return arrayList.contains(o);
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return arrayList.iterator();
-    }
-
-    @Override
-    public Object[] toArray() {
-        return arrayList.toArray();
     }
 
     @Override
