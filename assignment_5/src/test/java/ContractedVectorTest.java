@@ -18,6 +18,18 @@ class ContractedVectorTest {
     }
 
     @Test
+    void testRemoveAt(){
+        ContractedVector<Integer> vector = new ContractedVector<>();
+        assertThrows(Contract.PreconditionViolation.class, () -> vector.removeElementAt(2));
+    }
+
+    @Test
+    void testElementAt(){
+        ContractedVector<Integer> vector = new ContractedVector<>();
+        assertThrows(Contract.PreconditionViolation.class, () -> vector.elementAt(2));
+    }
+
+    @Test
     void testLastElement() {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, vector::lastElement);
