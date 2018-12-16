@@ -28,5 +28,11 @@ class ContractedVectorTest {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, () -> vector.indexOf(null, -1));
     }
+
+    @Test
+    void testLastIndexOfBackwardsFromIndex() {
+        ContractedVector<Integer> vector = new ContractedVector<>();
+        assertThrows(Contract.PreconditionViolation.class, () -> vector.lastIndexOf(null, 2));
+    }
 }
 

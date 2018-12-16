@@ -3,6 +3,7 @@ import ch.usi.si.codelounge.jsicko.Contract;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+@SuppressWarnings("UnusedReturnValue")
 public interface VectorContract<E> extends Contract {
 
     int size();
@@ -14,6 +15,8 @@ public interface VectorContract<E> extends Contract {
     int indexOf(Object o, int index);
 
     int lastIndexOf(Object o);
+
+    @Requires("indexWithinBounds")
     int lastIndexOf(Object o, int index);
     E elementAt(int index);
 
@@ -46,5 +49,10 @@ public interface VectorContract<E> extends Contract {
     @Pure
     default boolean nonNegativeIndex(int index){
         return index >= 0;
+    }
+
+    @Pure
+    default boolean indexWithinBounds(int index){
+        return index < size();
     }
 }
