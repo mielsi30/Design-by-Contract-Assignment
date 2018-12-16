@@ -59,25 +59,45 @@ For the ArrayList class, a total of 16 Contracts and one Invariant were implemen
 
 \begin{table}[h]
 \begin{tabular}{|l|l|l|}
-\hline
-\textbf{Method}                     & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
-add(E e)                            & sizeIncreases                &                        \\ \hline
-add(int index, E element)           & indexInRange                 & sizeIncreases          \\ \hline
-get(int index)                      & indexInRange                 &                        \\ \hline
-remove(Object o)                    &                              & sizeDoesNotIncrease    \\ \hline
-remove(int index)                   & indexInRange                 & sizeDecreases          \\ \hline
-addAll(Collection c)                &                              & containsAll            \\ \hline
-addAll(int index, Collection c)     & indexInRange                 &                        \\ \hline
-removeAll(Collection c)             & collectionNotNull            &                        \\ \hline
-retainAll(Collection c)             & collectionNotNull            &                        \\ \hline
-clear()                             & listEmpty                    &                        \\ \hline
-set(int index, E element)           & indexInRange                 &                        \\ \hline
-indexOf(Object o)                   & equalObjectAtFirstOccurrence &                        \\ \hline
-lastIndexOf(Object o)               & equalObjectAtLastPosition    &                        \\ \hline
-subList(int fromIndex, int toIndex) & indexesInRange               &                        \\ \hline
-toArray(E[] a)                  & arrayNotNull                 &                        \\ \hline
+	\hline
+	\textbf{Method}                     & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
+	add(E e)                            & sizeIncreases                &                        \\ \hline
+	add(int index, E element)           & indexInRange                 & sizeIncreases          \\ \hline
+	get(int index)                      & indexInRange                 &                        \\ \hline
+	remove(Object o)                    &                              & sizeDoesNotIncrease    \\ \hline
+	remove(int index)                   & indexInRange                 & sizeDecreases          \\ \hline
+	addAll(Collection c)                &                              & containsAll            \\ \hline
+	addAll(int index, Collection c)     & indexInRange                 &                        \\ \hline
+	removeAll(Collection c)             & collectionNotNull            &                        \\ \hline
+	retainAll(Collection c)             & collectionNotNull            &                        \\ \hline
+	clear()                             & listEmpty                    &                        \\ \hline
+	set(int index, E element)           & indexInRange                 &                        \\ \hline
+	indexOf(Object o)                   & equalObjectAtFirstOccurrence &                        \\ \hline
+	lastIndexOf(Object o)               & equalObjectAtLastPosition    &                        \\ \hline
+	subList(int fromIndex, int toIndex) & indexesInRange               &                        \\ \hline
+	toArray(E[] a)                  & arrayNotNull                 &                        \\ \hline
+	\end{tabular}
+	\end{table}
+	
+	Vector class Contracts
+	\begin{itemize}
+	 \item Invariant: nonNegativeSize. Ensures the size of the vector is always equal or greater than 0.
+	\end{itemize}
+	
+	\begin{table}[h]
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Method}                      & \textbf{Precondition}        & \textbf{Postcondition} \\ \hline
+	addElement(E obj)                         & sizeIncreases           &                        \\ \hline
+	elementAt(int index)                      & indexWithinBounds                 &                        \\ \hline
+	removeElementAt(int index)         & indexWithinBounds                 &       \\ \hline
+	indexOf(Object o, int index)          &  nonNegativeIndex      & sizeStaysTheSame   \\ \hline
+	lastElement()    							  & nonEmptyVector         &                                    \\ \hline
+	firstElement()             				  & nonEmptyVector         &                         		      \\ \hline
+	removeAllElements()                             & emptyVector                    &                        \\ \hline
+	removeIf(Predicate<? super E> filter)          & filterNotNull &                                    \\ \hline
+	lastIndexOf(Object o, int index)               & indexWithinBounds    &      sizeStaysTheSame   \\ \hline
 \end{tabular}
 \end{table}
-
 
 \end{document}

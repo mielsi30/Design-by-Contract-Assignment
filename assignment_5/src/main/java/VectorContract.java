@@ -51,6 +51,7 @@ public interface VectorContract<E> extends Contract {
 
     void insertElementAt(E obj, int index);
 
+    @Ensures("sizeIncreases")
     void addElement(E obj);
 
     void sort(Comparator<? super E> c);
@@ -86,5 +87,10 @@ public interface VectorContract<E> extends Contract {
     @Pure
     default boolean sizeStaysTheSame() {
         return this.size() == Contract.old(this).size();
+    }
+
+    @Pure
+    default boolean sizeIncreases() {
+        return this.size() == Contract.old(this).size() + 1;
     }
 }
