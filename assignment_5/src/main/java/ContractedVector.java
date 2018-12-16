@@ -2,6 +2,7 @@ import java.util.Comparator;
 import java.util.Vector;
 import java.util.function.Predicate;
 
+@SuppressWarnings("SuspiciousMethodCalls")
 public class ContractedVector<E> implements VectorContract<E> {
 
     private java.util.Vector<E> vector = new Vector<>();

@@ -6,21 +6,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ContractedVectorTest {
 
     @Test
-    void testFilter(){
+    void testFilter() {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, () -> vector.removeIf(null));
     }
 
     @Test
-    void testFirstElement(){
+    void testFirstElement() {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, vector::firstElement);
     }
 
     @Test
-    void testLastElement(){
+    void testLastElement() {
         ContractedVector<Integer> vector = new ContractedVector<>();
         assertThrows(Contract.PreconditionViolation.class, vector::lastElement);
+    }
+
+    @Test
+    void testIndexOfStartingFromIndex() {
+        ContractedVector<Integer> vector = new ContractedVector<>();
+        assertThrows(Contract.PreconditionViolation.class, () -> vector.indexOf(null, -1));
     }
 }
 

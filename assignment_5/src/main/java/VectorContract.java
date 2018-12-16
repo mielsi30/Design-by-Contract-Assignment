@@ -9,7 +9,10 @@ public interface VectorContract<E> extends Contract {
     boolean isEmpty();
     boolean contains(Object o);
     int indexOf(Object o);
+
+    @Requires("nonNegativeIndex")
     int indexOf(Object o, int index);
+
     int lastIndexOf(Object o);
     int lastIndexOf(Object o, int index);
     E elementAt(int index);
@@ -38,5 +41,10 @@ public interface VectorContract<E> extends Contract {
     @Pure
     default boolean nonEmptyVector(){
         return this.size() != 0;
+    }
+
+    @Pure
+    default boolean nonNegativeIndex(int index){
+        return index >= 0;
     }
 }
