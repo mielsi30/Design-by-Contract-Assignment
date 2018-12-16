@@ -38,7 +38,6 @@ class ContractedArrayListTest {
     }
 
     @Test
-
     void testAddAll() {
         ContractedArrayList<String> list = new ContractedArrayList<>();
         ArrayList a = new ArrayList();

@@ -25,7 +25,7 @@ public interface ListContract<E> extends Contract {
 /* in theory this method also needs an array of the same type as the list, but the compiler detects the exception
  before our assertion */
 
-    @Ensures("sizeIncreases")
+//    @Ensures("sizeIncreases")
     boolean add(E e);
 
     @Ensures("sizeDoesNotIncrease")
@@ -102,12 +102,12 @@ public interface ListContract<E> extends Contract {
     }
 
     @Pure
-    default <E> boolean arrayNotNull(E[] a) {
+    default boolean arrayNotNull(E[] a) {
         return a != null;
     }
 
     @Pure
-    default boolean sizeDoesNotIncrease(Object o) {
+    default boolean sizeDoesNotIncrease() {
         return this.size() <= Contract.old(this).size();
     }
 

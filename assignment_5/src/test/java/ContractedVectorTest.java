@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ContractedVectorClass {
+class ContractedVectorTest {
 
     @Test
     void testFilter(){
@@ -14,13 +14,13 @@ public class ContractedVectorClass {
     @Test
     void testFirstElement(){
         ContractedVector<Integer> vector = new ContractedVector<>();
-        assertThrows(Contract.PreconditionViolation.class, () -> vector.firstElement());
+        assertThrows(Contract.PreconditionViolation.class, vector::firstElement);
     }
 
     @Test
     void testLastElement(){
         ContractedVector<Integer> vector = new ContractedVector<>();
-        assertThrows(Contract.PreconditionViolation.class, () -> vector.lastElement());
+        assertThrows(Contract.PreconditionViolation.class, vector::lastElement);
     }
 
 }
